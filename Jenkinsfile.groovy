@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 node {
     properties([parameters([string(defaultValue: '127.0.0.1', description: 'Please give IP to build a site', name: 'IP', trim: true)])])
     stage("Install git"){
@@ -35,3 +36,18 @@ node {
         sh "ssh    ec2-user@${IP}       sudo systemctl start flaskex"
     }
 }
+=======
+node{
+    stage("remove container"){
+        try{
+            sh "root@${IP} docker run -f Flaskex"
+        }
+        catch(exec){
+            sh "echo container deleted"
+        }
+    }
+    stage("Run container"){
+    sh "ssh root@${IP} docker run -d --name Flaskexnew -p 6000:4000 rameca231190/flaskex"
+    }
+}
+>>>>>>> 2130f2d7466519c59655397fe88585625ac7476b
